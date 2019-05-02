@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block body %}
+<h1>Make a new user</h1>
+<br>
+<form class="form-center" action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br>
+    <input class="btn btn-default" type="submit" name="signup" value="Sign Up">
+</form>
+{% endblock %}

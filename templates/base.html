@@ -1,0 +1,50 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}Pet Star{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'cl_app/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'cl_app/css/main.css' %}">
+    </head>
+    <body>
+        {# menu bar #}
+        <ul class="nav nav-tabs navbar-fixed-top">
+            <li role="presentation"><a href="{% url 'index_view' %}">Home</a></li>
+            {% if request.user.is_authenticated %}
+                <li role="presentation" class=""><a href="{% url 'profile_view' %}">Your Profile</a></li>
+                <li role="presentation" class="pull-right"><a href="{% url 'logout' %}?next={% url 'index_view' %}">Log Out</a></li>
+                <li role="presentation" class="disabled pull-right"><a href="#">Welcome {{ request.user }}</a></li>
+            {% else %}
+                <li role="presentation"><a href="{% url 'register_view' %}">Get an account</a></li>
+                <li role="presentation"><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+            {# search #}
+            <form id="searchform" action="{% url 'search_list_view' %}" method="get" accept-charset="utf-8">
+                <div class="input-group col-md-3 pull-right">
+                    <input class="form-control" id="searchbox" name="q" type="text" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                </div>
+            </form>
+        </ul>
+
+        {% block hero %}
+        <p class="text-center">To post a new listing, go to the category you would like to place it in and click the Add New Listing button.</p>
+        {% endblock %}
+        <div class="container">
+            {% block body %}
+                body content
+            {% endblock %}
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        {# <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>#}
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        {# <script src="{% static 'bank_app/js/bootstrap.js' %}"></script>#}
+    </body>
+    <footer>
+        <hr>
+        <p class="text-center">Made by Nolan</p>
+    </footer>
+</html>
